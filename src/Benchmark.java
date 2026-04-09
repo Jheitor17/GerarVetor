@@ -57,6 +57,33 @@ public class Benchmark {
 
         System.out.printf("%-40s | Média: %10.4f ms | Desvio Padrão: %10.4f ms%n", nome, media, desvioPadrao);
     }
+private static int[] gerarVetor(String caso, int tamanho, Random aleatorio) {
+        int[] vetor = new int[tamanho];
 
+        switch (caso) {
+            case "melhor":
+                for (int i = 0; i < tamanho; i++) vetor[i] = i;
+                break;
+            case "pior":
+                for (int i = 0; i < tamanho; i++) vetor[i] = tamanho - i;
+                break;
+            case "medio":
+                for (int i = 0; i < tamanho; i++) vetor[i] = aleatorio.nextInt(tamanho);
+                break;
+        }
+        return vetor;
+    }
+
+    private static double calcularMedia(double[] tempos) {
+        double soma = 0;
+        for (double t : tempos) soma += t;
+        return soma / tempos.length;
+    }
+
+    private static double calcularDesvioPadrao(double[] tempos, double media) {
+        double soma = 0;
+        for (double t : tempos) soma += Math.pow(t - media, 2);
+        return Math.sqrt(soma / tempos.length);
+    }
 
 }
